@@ -1,0 +1,6 @@
+# necessary packages
+automake
+autoconf
+libtool
+openssl-devel
+libattr-devel
