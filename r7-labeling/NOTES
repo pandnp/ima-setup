@@ -1,0 +1,65 @@
+# RHEL 7 testing
+
+To simplify testing for now, here are some directions.  I've attached
+some tar files.  I've tried simplifying rhel7-evm-labeling, but it has
+not been tested.  In addition, you'll need evmctl, which can be cloned
+from: git://git.code.sf.net/p/linux-ima/ima-evm-utils.
+
+Copy the tar files over to the new RHEL machine or VM.
+
+(There are some differences with the 3.13 kernel.)
+
+# install dracut integrity modules as root in /usr/lib/dracut/
+cd /usr/lib/dracut
+tar -xvzf /home/test/Downloads/dracut-integrity-v2a.tar.gz
+
+# install 'evmctl' in /usr/bin
+# install evm_labeling_new.tar.gz and create keys
+tar -xvzf ~/Downloads/rhel7-evm-labeling.tar.gz
+
+# create keys
+cd r7-labeling
+
+# edit evm_create_keys.sh, changing NOTPM to TPM, if you have a TPM.
+./evm_create_keys.sh
+
+# create /etc/sysconfig/masterkey
+#        or add 'masterkeytype=user' on the boot command line
+# MULTIKERNELMODE="NO"
+# MASTERKEYTYPE="user"
+# MASTERKEY="/etc/keys/kmk-${MASTERKEYTYPE}.blob"
+
+# mount the filesystems with iversion. for example, 
+# UUID=6959f86a-0834-4b67-b618-c5a747f5bde0 /home ext4 defaults,iversion  1 2
+
+# Backup the existing initramfs, and create a new one based on the
+# additional dracut patches
+# Dracut might expect evmctl to be in /sbin, but it is installed in
+# /usr/local/bin/.  Create a soft link.
+dracut -H -f /boot/initramfs-3.10.0-64.el7.x86_64.img 3.10.0-64.el7.x86_64 -M
+
+# edit /etc/grub2.cfg and add: "ima_tcb ima_appraise_tcb evm=fix 
+# ima_appraise=fix evmkey=/etc/keys/evm-user.blob" to the boot command 
+# line.  Replace 'evm_user.blob' if you have a TPM with
+# 'evm_trusted.blob'.
+
+# Reboot in 'fix' mode, and label the filesystem.
+# On reboot, as root, label filesystem:
+# cd into directory
+cd r7-labeling
+./label_files.sh
+
+cat /sys/kernel/security/ima/ascii_runtime_measurements
+
+# Files should be labeled with security.ima, security.evm, and selinux 
+# labels.
+
+getfattr -m ^security --dump -e hex <filename>
+
+# If everything is working, reboot without 'evm=fix ima_appraise=fix'.  
+
+---
+hint:
+
+# If your system doesn't boot, use journalctl to see the dracut messages
+journalctl -a | less
