@@ -1,4 +1,3 @@
 #!/bin/bash
 
-# mount the filesystems with iversion, edit /etc/fstab
-sed -i 's/defaults/defaults,iversion/g' /etc/fstab
+awk '!/(^#)|swap|iversion/{$4=$4 ",iversion"}1' OFS="\t" /etc/fstab > tmp && mv tmp /etc/fstab
