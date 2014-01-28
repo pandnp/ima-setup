@@ -1,4 +1,3 @@
 TODO:
 
 mount-iversion.sh - don't mount swap with iversion
-grub-fix-mode - if condition isn't working, both cases are executed
