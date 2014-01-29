@@ -13,3 +13,4 @@ autoconf
 libtool
 libssl-dev
 libattr1-dev
+keyutils
