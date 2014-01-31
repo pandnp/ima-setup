@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [$1 == 1]; then # vm mode 
+if [ $1 == "1" ]; then # vm mode 
 evmpath="evmkey=\/etc\/keys\/evm-user.blob"
 else # hw mode
 evmpath="evmkey=\/etc\/keys\/evm-trusted.blob"
