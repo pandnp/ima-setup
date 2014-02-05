@@ -5,7 +5,7 @@
 ALG='sha1'
 PRIVKEY=/etc/keys/private/local.pem
 
-if [ $# == 2 ]; then
+if [ $# -eq 2 ]; then
    PRIVKEY="$2"
 fi
 
