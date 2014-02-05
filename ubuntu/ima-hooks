@@ -15,6 +15,6 @@ esac
 # Begin real processing below this line
 . /usr/share/initramfs-tools/hook-functions
 copy_exec /usr/local/bin/evmctl /sbin
-copy_exec /bin/keyctl /sbin
+copy_exec /usr/bin/keyctl /sbin
 cp -r /etc/keys $DESTDIR/etc
 

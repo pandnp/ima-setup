@@ -11,14 +11,19 @@ prereqs)
      exit 0
      ;;
 esac
+
 #ima_id=`/sbin/keyctl search @u keyring _ima`
 #evm_id=`/sbin/keyctl search @u keyring _evm`
 ima_id=`/sbin/keyctl newring _ima @u`
 evm_id=`/sbin/keyctl newring _evm @u`
 for PUBKEY in /etc/keys/*.der; do
-    /sbin/evmctl -x import $PUBKEY $ima_id
-    /sbin/evmctl -x import $PUBKEY $evm_id
+    evmctl -x import $PUBKEY $ima_id
+    evmctl -x import $PUBKEY $evm_id
     info "integrity: loaded IMA X509 cert $PUBKEY"
     info "integrity: loaded EVM X509 cert $PUBKEY"
 done
+
+#enable EVM
+echo "1" > /sys/kernel/security/evm
+
 sleep 3
