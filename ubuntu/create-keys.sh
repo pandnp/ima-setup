@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # create keys
-cd /usr/bin/r7-labeling
+cd /usr/bin/labeling
 # edit evm_create_keys.sh, changing NOTPM to TPM, if you have a TPM.
 
 if [ $1 == "1" ]; then

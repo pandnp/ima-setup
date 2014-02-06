@@ -18,7 +18,7 @@ tar -xvzf /home/test/Downloads/dracut-integrity-v2a.tar.gz
 tar -xvzf ~/Downloads/rhel7-evm-labeling.tar.gz
 
 # create keys
-cd r7-labeling
+cd labeling
 
 # edit evm_create_keys.sh, changing NOTPM to TPM, if you have a TPM.
 ./evm_create_keys.sh
