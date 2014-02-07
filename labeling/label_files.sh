@@ -32,7 +32,7 @@ for d in $dirlist; do
    find $d -type f -uid 0 -exec sh -c "< '{}'" \;
 done
 
-dirlist="/etc /usr/bin /usr/sbin /usr/libexec /usr/local /usr/lib64 /usr/lib /usr/share /opt/"
+dirlist="/bin /sbin /etc /usr/bin /usr/sbin /usr/libexec /usr/local /usr/lib64 /usr/lib /usr/share /opt/"
 for d in $dirlist; do 
    echo `date --rfc-3339=ns` 'subdir= '$d 'using local'
    find $d -type f -uid 0 -exec ./sign_executable.sh '{}' /etc/keys/private/local_privkey.pem \;
