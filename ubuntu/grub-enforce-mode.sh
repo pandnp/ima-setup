@@ -11,25 +11,15 @@ fi
 
 options="ima_tcb ima_appraise_tcb evmx509=\/etc\/keys\/local_x509.der $evmpath"
 
+remove=("ima_tcb" "ima_appraise_tcb" "evm=fix" "ima_appraise=fix" "evmx509=\/etc\/keys\/local_x509.der" "$vm" "$tpm")
+
 # clean up changes from previous runs
-for i in "${options[@]}"
+for i in "${remove[@]}"
 do
   :
   sed -i "s/ $i//g" /etc/default/grub
   sed -i "s/$i//g" /etc/default/grub
 done
-
-# remove fix mode
-sed -i "s/ evm=fix//g" /etc/default/grub
-sed -i "s/ ima_appraise=fix//g" /etc/default/grub
-sed -i "s/evm=fix//g" /etc/default/grub
-sed -i "s/ima_appraise=fix//g" /etc/default/grub
-
-# remove vm/tpm key
-sed -i "s/ $vm//g" /etc/default/grub
-sed -i "s/ $tpm//g" /etc/default/grub
-sed -i "s/$vm//g" /etc/default/grub
-sed -i "s/$tpm//g" /etc/default/grub
 
 # remove extra spaces
 sed -i "s/  / /g" /etc/default/grub
@@ -39,4 +29,3 @@ sed -i "s/GRUB_CMDLINE_LINUX=\"\(.*\)\"/GRUB_CMDLINE_LINUX=\"\1 $options\"/" /et
 
 # regenerate grub.cfg
 update-grub2
-#grub-mkconfig -o /boot/grub/grub.cfg
