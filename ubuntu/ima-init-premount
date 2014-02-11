@@ -14,8 +14,6 @@ esac
 
 mount -n -t securityfs securityfs /sys/kernel/security
 
-#ima_id=`/sbin/keyctl search @u keyring _ima`
-#evm_id=`/sbin/keyctl search @u keyring _evm`
 ima_id=`/sbin/keyctl newring _ima @u`
 evm_id=`/sbin/keyctl newring _evm @u`
 for PUBKEY in /etc/keys/*.der; do
