@@ -21,7 +21,7 @@ for PUBKEY in /etc/keys/*.der; do
     evmctl -x import $PUBKEY $evm_id > /dev/null 
 done
 
-keyctl add user kmk-user /etc/keys/kmk-user.blob @u > /dev/null
+keyctl add user kmk-user "`cat /etc/keys/kmk-user.blob`" @u > /dev/null
 keyctl add encrypted evm-key "load `cat /etc/keys/evm-user.blob`" @u > /dev/null
 
 #enable EVM
