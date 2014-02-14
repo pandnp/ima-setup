@@ -22,5 +22,4 @@ MASTERKEYTYPE="trusted"
 MASTERKEY="/etc/keys/kmk-${MASTERKEYTYPE}.blob"'
 fi
 
-mkdir /etc/sysconfig
 echo "$MASTERKEY" > /etc/sysconfig/masterkey
