@@ -20,7 +20,4 @@ done
 sed -i "s/GRUB_CMDLINE_LINUX=\"\(.*\)\"/GRUB_CMDLINE_LINUX=\"\1 $options\"/" /etc/default/grub
 
 # regenerate grub.cfg
-#grub2-mkconfig -o /boot/grub2/grub.cfg
-update-grub2
-
-#reboot
+grub2-mkconfig -o /boot/grub2/grub.cfg
