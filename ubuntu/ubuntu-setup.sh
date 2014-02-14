@@ -7,5 +7,5 @@ VM=$1 # set VM=1 for virtual machine, set VM=0 for hardware
 ./install-evmctl.sh
 ./create-keys.sh $VM
 ./mount-iversion.sh
-./mkinitramfs.sh
+./mkinitramfs.sh $VM
 ./grub-fix-mode.sh $VM
