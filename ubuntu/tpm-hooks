@@ -14,12 +14,10 @@ esac
 
 # Begin real processing below this line
 . /usr/share/initramfs-tools/hook-functions
-copy_exec /etc/keys/kmk-user.blob
-copy_exec /etc/keys/evm-user.blob
+copy_exec /etc/keys/kmk-trusted.blob
+copy_exec /etc/keys/evm-trusted.blob
 copy_exec /etc/keys/local_x509.der
 copy_exec /etc/keys/private/local_priv.pem
 copy_exec /sys/kernel/security/evm
 copy_exec /usr/local/bin/evmctl /sbin
 copy_exec /bin/keyctl /sbin
-#cp -r /etc/keys $DESTDIR/etc
-

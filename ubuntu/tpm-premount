@@ -1,0 +1,30 @@
+#!/bin/sh
+PREREQ=""
+prereqs()
+{
+     echo "$PREREQ"
+}
+
+case $1 in
+prereqs)
+     prereqs
+     exit 0
+     ;;
+esac
+
+mount -n -t securityfs securityfs /sys/kernel/security
+
+ima_id=`/sbin/keyctl newring _ima @u`
+evm_id=`/sbin/keyctl newring _evm @u`
+for PUBKEY in /etc/keys/*.der; do
+    evmctl -x import $PUBKEY $ima_id > /dev/null
+    evmctl -x import $PUBKEY $evm_id > /dev/null 
+done
+
+keyctl add trusted kmk-trusted "load `cat /etc/keys/kmk-trusted.blob`" @u > /dev/null
+keyctl add encrypted evm-key "load `cat /etc/keys/evm-trusted.blob`" @u > /dev/null
+
+#enable EVM
+echo "1" > /sys/kernel/security/evm
+
+sleep 3

@@ -1,7 +1,14 @@
 #!/bin/sh
 
-cp ima-init-premount /usr/share/initramfs-tools/scripts/init-premount/ima
-cp ima-hooks /usr/share/initramfs-tools/hooks/ima
+# $1 = VM
+if [ $1 == "1" ]; then
+	cp notpm-hooks /usr/share/initramfs-tools/hooks/ima
+	cp notpm-premount /usr/share/initramfs-tools/scripts/init-premount/ima
+else
+	cp tpm-hooks /usr/share/initramfs-tools/hooks/ima
+	cp tpm-premount /usr/share/initramfs-tools/scripts/init-premount/ima
+fi
+
 
 cd /boot
 mkinitramfs -k -o initrd.img-`uname -r` `uname -r`
