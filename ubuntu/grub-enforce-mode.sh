@@ -3,7 +3,7 @@
 vm="evmkey=\/etc\/keys\/evm-user.blob"
 tpm="evmkey=\/etc\/keys\/evm-trusted.blob"
 
-if [ $1 == "1" ]; then # vm mode 
+if [ $1 -eq "1" ]; then # vm mode 
 evmpath=$vm
 else # tpm mode
 evmpath=$tpm
