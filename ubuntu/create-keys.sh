@@ -1,6 +1,5 @@
 #!/bin/bash
 
-set -x
 TPM=$1
 
 # create keys
