@@ -9,9 +9,9 @@ PWD=`pwd`
 TPM=$1
 
 su -c 'mkdir -p /etc/keys'
-if [ $TPM -eq "1" ]; then
+if [ $TPM -eq "tpm" ]; then
   su - -c "$PWD/evm_create_symkey.sh TPM"
-else
+elif [ $TPM -eq "notpm" ]; then
   su - -c "$PWD/evm_create_symkey.sh NOTPM"
 fi
 
