@@ -1,16 +1,17 @@
 #!/bin/bash
 
+set -x
 TPM=$1
 
 # create keys
 cd ../util
 ./evm_create_keys.sh $TPM
 
-if [ $1 -eq "tpm" ]; then
+if [ "$1" == "tpm" ]; then
 MASTERKEY='MULTIKERNELMODE="NO"
 MASTERKEYTYPE="user"
 MASTERKEY="/etc/keys/kmk-${MASTERKEYTYPE}.blob"'
-elif [ $1 -eq "notpm" ]; then
+elif [ "$1" == "notpm" ]; then
 MASTERKEY='MULTIKERNELMODE="NO"
 MASTERKEYTYPE="trusted"
 MASTERKEY="/etc/keys/kmk-${MASTERKEYTYPE}.blob"'
