@@ -1,7 +1,6 @@
 #!/bin/bash
 #
 # Create symmetric key used for the EVM HMAC
-
 CONFIG=VM
 if [ $# -eq 1 ]; then 
    CONFIG="${1}"
