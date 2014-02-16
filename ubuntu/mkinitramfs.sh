@@ -1,12 +1,12 @@
-#!/bin/sh
+#!/bin/bash
 
 # $1 = TPM
-if [ $1 -eq "tpm" ]; then
+if [ "$1" == "tpm" ]; then
   kmk='/etc/keys/kmk-trusted.blob'
   evm='/etc/keys/evm-trusted.blob'
   load_kmk='keyctl add trusted kmk-trusted "load `cat /etc/keys/kmk-trusted.blob`" @u > /dev/null'
   load_evm='keyctl add encrypted evm-key "load `cat /etc/keys/evm-trusted.blob`" @u > /dev/null'
-elif [ $1 -eq "notpm" ]; then
+elif [ "$1" == "notpm" ]; then
   kmk='/etc/keys/kmk-user.blob'
   evm='/etc/keys/evm-user.blob'
   load_kmk='keyctl add user kmk-user "`cat /etc/keys/kmk-user.blob`" @u > /dev/null'
@@ -36,8 +36,8 @@ copy_exec /etc/keys/local_x509.der
 copy_exec /etc/keys/private/local_priv.pem'
 
 ima_hooks="$ima_hooks
-copy_exec $kmk
-copy_exec $evm"
+copy_exec "$kmk"
+copy_exec "$evm""
 
 ima_premount='#!/bin/sh
 PREREQ=""
@@ -61,16 +61,19 @@ for PUBKEY in /etc/keys/*.der; do
 done'
 
 ima_premount="$ima_premount
-$load_kmk
-$load_evm
+"$load_kmk"
+"$load_evm"
 
 #enable EVM
 mount -n -t securityfs securityfs /sys/kernel/security
 echo "1" > /sys/kernel/security/evm
-
 sleep 3"
 
-echo $ima_hooks > /usr/share/initramfs-tools/hooks/ima
-echo $ima_premount > /usr/share/initramfs-tools/scripts/init-premount/ima
+echo "$ima_hooks" > /usr/share/initramfs-tools/hooks/ima
+echo "$ima_premount" > /usr/share/initramfs-tools/scripts/init-premount/ima
 
-update-initramfs -u
+chmod u+x /usr/share/initramfs-tools/hooks/ima
+chmod u+x /usr/share/initramfs-tools/scripts/init-premount/ima
+
+cd /boot
+mkinitramfs -k -o initrd.img-`uname -r` `uname -r`
