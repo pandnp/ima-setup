@@ -4,16 +4,16 @@ notpm="evmkey=\/etc\/keys\/evm-user.blob"
 tpm="evmkey=\/etc\/keys\/evm-trusted.blob"
 
 # $1 = tpm
-if [ $1 -eq "tpm" ]; then
+if [ "$1" == "tpm" ]; then
 evmpath=$tpm
-elif [ $1 -eq "notpm" ]; then
+elif [ "$1" == "notpm" ]; then
 evmpath=$notpm
 fi
 
 # $2 = fix or enforce
-if [ $2 -eq "fix" ];
+if [ "$2" == "fix" ]; then
   options="ima_tcb ima_appraise_tcb evm=fix ima_appraise=fix evmx509=\/etc\/keys\/local_x509.der $evmpath"
-elif [ $2 -eq "enforce" ];
+elif [ "$2" == "enforce" ]; then
   options="ima_tcb ima_appraise_tcb evmx509=\/etc\/keys\/local_x509.der $evmpath"
 fi
 
