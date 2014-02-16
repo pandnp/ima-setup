@@ -4,8 +4,8 @@ VM=$1 # set VM=1 for virtual machine, set VM=0 for hardware
 
 ./install-pkgs.sh
 ./install-ima-evm-utils.sh
-./install-evmctl.sh
+./install-labeling.sh
 ./create-keys.sh $VM
 ./mount-iversion.sh
 ./mkinitramfs.sh $VM
-./grub-fix-mode.sh $VM
+./grub.sh $VM fix

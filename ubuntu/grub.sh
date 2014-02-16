@@ -3,13 +3,19 @@
 notpm="evmkey=\/etc\/keys\/evm-user.blob"
 tpm="evmkey=\/etc\/keys\/evm-trusted.blob"
 
-if [ $1 -eq "1" ]; then # vm mode 
+# $1 = tpm
+if [ $1 -eq "1" ]; then
 evmpath=$tpm
-else # tpm mode
+else
 evmpath=$notpm
 fi
 
-options="ima_tcb ima_appraise_tcb evm=fix ima_appraise=fix evmx509=\/etc\/keys\/local_x509.der $evmpath"
+# $2 = fix or enforce
+if [ $2 = "fix" ];
+  options="ima_tcb ima_appraise_tcb evm=fix ima_appraise=fix evmx509=\/etc\/keys\/local_x509.der $evmpath"
+else
+  options="ima_tcb ima_appraise_tcb evmx509=\/etc\/keys\/local_x509.der $evmpath"
+fi
 
 remove=("ima_tcb" "ima_appraise_tcb" "evm=fix" "ima_appraise=fix" "evmx509=\/etc\/keys\/local_x509.der" "$notpm" "$tpm")
 
