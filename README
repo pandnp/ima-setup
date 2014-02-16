@@ -1,7 +1,11 @@
 # necessary packages
 
 # redhat
-sudo yum install automake autoconf libtool openssl-devel libattr-devel
+su -
+cd ima-setup/rhel
+./r7-setup.sh notpm
 
 # ubuntu
-sudo apt-get install automake autoconf libtool libssl-dev attr libattr1-dev keyutils libkeyutils-dev pkg-config
+su -
+cd ima-setup/ubuntu
+./ubuntu-setup.sh notpm
