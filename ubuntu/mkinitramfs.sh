@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # $1 = VM
-if [ $1 == "1" ]; then
+if [ $1 -eq "1" ]; then
 	cp notpm-hooks /usr/share/initramfs-tools/hooks/ima
 	cp notpm-premount /usr/share/initramfs-tools/scripts/init-premount/ima
 else
