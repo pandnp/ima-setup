@@ -3,7 +3,7 @@
 TPM=$1
 
 # create keys
-cd /usr/bin/labeling
+cd ../util
 ./evm_create_keys.sh $TPM
 
 if [ $1 -eq "tpm" ]; then
