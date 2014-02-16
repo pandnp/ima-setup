@@ -12,7 +12,7 @@ fi
 
 ./evm_create_keys.sh
 
-if [ $1 == "1" ]; then
+if [ $1 -eq "1" ]; then
 MASTERKEY='MULTIKERNELMODE="NO"
 MASTERKEYTYPE="user"
 MASTERKEY="/etc/keys/kmk-${MASTERKEYTYPE}.blob"'
