@@ -6,9 +6,14 @@
 
 # Create symmetric key used for the EVM HMAC
 PWD=`pwd`
+TPM=$1
 
 su -c 'mkdir -p /etc/keys'
-su - -c "$PWD/evm_create_symkey.sh TPM"
+if [ $TPM -eq "1" ]; then
+  su - -c "$PWD/evm_create_symkey.sh TPM"
+else
+  su - -c "$PWD/evm_create_symkey.sh NOTPM"
+fi
 
 # Create local asymmetric key pair
 $PWD/evm_create_rsa_key.sh sha256 local
