@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TPM=$1
+TPM=$1 # tpm / notpm
 
 ./install-pkgs.sh
 ./install-ima-evm-utils.sh

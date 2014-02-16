@@ -6,11 +6,11 @@ TPM=$1
 cd /usr/bin/labeling
 ./evm_create_keys.sh $TPM
 
-if [ $1 -eq "1" ]; then
+if [ $1 -eq "tpm" ]; then
 MASTERKEY='MULTIKERNELMODE="NO"
 MASTERKEYTYPE="user"
 MASTERKEY="/etc/keys/kmk-${MASTERKEYTYPE}.blob"'
-else
+elif [ $1 -eq "notpm" ]; then
 MASTERKEY='MULTIKERNELMODE="NO"
 MASTERKEYTYPE="trusted"
 MASTERKEY="/etc/keys/kmk-${MASTERKEYTYPE}.blob"'

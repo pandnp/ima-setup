@@ -1,12 +1,12 @@
 #!/bin/sh
 
 # $1 = TPM
-if [ $1 == "1" ];
+if [ $1 -eq "tpm" ]; then
   kmk='/etc/keys/kmk-trusted.blob'
   evm='/etc/keys/evm-trusted.blob'
   load_kmk='keyctl add trusted kmk-trusted "load `cat /etc/keys/kmk-trusted.blob`" @u > /dev/null'
   load_evm='keyctl add encrypted evm-key "load `cat /etc/keys/evm-trusted.blob`" @u > /dev/null'
-else
+elif [ $1 -eq "notpm" ]; then
   kmk='/etc/keys/kmk-user.blob'
   evm='/etc/keys/evm-user.blob'
   load_kmk='keyctl add user kmk-user "`cat /etc/keys/kmk-user.blob`" @u > /dev/null'
@@ -62,7 +62,7 @@ done'
 
 ima_premount="$ima_premount
 $load_kmk
-$load_evm"
+$load_evm
 
 #enable EVM
 mount -n -t securityfs securityfs /sys/kernel/security
