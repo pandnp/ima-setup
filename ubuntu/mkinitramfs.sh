@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# load keyring and enable evm in initramfs
+
 # $1 = TPM
 if [ "$1" == "tpm" ]; then
   kmk='/etc/keys/kmk-trusted.blob'

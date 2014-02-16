@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# enable ima-appraisal and evm in grub
+
 notpm="evmkey=\/etc\/keys\/evm-user.blob"
 tpm="evmkey=\/etc\/keys\/evm-trusted.blob"
 
