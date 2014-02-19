@@ -1,5 +1,8 @@
 #!/bin/bash
 
+hooks='/etc/initramfs-tools/hooks/ima'
+localtop='/etc/initramfs-tools/scripts/local-top/ima.sh'
+
 # load keyring and enable evm in initramfs
 
 # $1 = TPM
@@ -71,11 +74,11 @@ mount -n -t securityfs securityfs /sys/kernel/security
 echo "1" > /sys/kernel/security/evm
 sleep 3"
 
-echo "$ima_hooks" > /usr/share/initramfs-tools/hooks/ima
-echo "$ima_premount" > /usr/share/initramfs-tools/scripts/init-premount/ima
+echo "$ima_hooks" > $hooks
+echo "$ima_premount" > $localtop
 
-chmod u+x /usr/share/initramfs-tools/hooks/ima
-chmod u+x /usr/share/initramfs-tools/scripts/init-premount/ima
+chmod u+x $hooks
+chmod u+x $localtop
 
 cd /boot
 mkinitramfs -k -o initrd.img-`uname -r` `uname -r`
