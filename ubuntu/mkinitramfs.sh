@@ -58,8 +58,8 @@ esac
 ima_id=`/sbin/keyctl newring _ima @u`
 evm_id=`/sbin/keyctl newring _evm @u`
 for PUBKEY in /etc/keys/*.der; do
-    evmctl -x import $PUBKEY $ima_id > /dev/null
-    evmctl -x import $PUBKEY $evm_id > /dev/null
+    evmctl import $PUBKEY $ima_id > /dev/null
+    evmctl import $PUBKEY $evm_id > /dev/null
 done'
 
 ima_premount="$ima_premount

@@ -11,7 +11,7 @@ fi
 
 file --brief "$1" | grep -e ELF -e script > /dev/null
 if [ $? -eq 0 ]; then
-       	evmctl ima_sign -u -x -k "$PRIVKEY" --imasig "$1"
+       	evmctl ima_sign -u -k "$PRIVKEY" --imasig "$1"
 else
        	sh -c "<\"$1\""
 fi
