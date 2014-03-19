@@ -4,8 +4,15 @@
 su -
 cd ima-setup/rhel
 ./r7-setup.sh notpm
+reboot
 
 # ubuntu
 su -
 cd ima-setup/ubuntu
 ./ubuntu-setup.sh notpm
+reboot now
+
+# label filesystem
+su -
+cd ima-setup/util
+./label_files.sh
