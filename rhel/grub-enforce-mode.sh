@@ -1,8 +1,8 @@
 #!/bin/bash
 
-if [ $1 == "1" ]; then # vm mode 
-evmpath="evmkey=\/etc\/keys\/evm-user.blob"
-else # hw mode
+if [ $1 == "tpm" ]; then # tpm mode 
+evmpath="evmkey=\/etc\/keys\/evm-trusted.blob"
+elif [ $1 == "notpm" ]; then # no tpm mode
 evmpath="evmkey=\/etc\/keys\/evm-trusted.blob"
 fi
 
@@ -25,5 +25,3 @@ sed -i "s/GRUB_CMDLINE_LINUX=\"\(.*\)\"/GRUB_CMDLINE_LINUX=\"\1 $options\"/" /et
 
 # regenerate grub.cfg
 grub2-mkconfig -o /boot/grub2/grub.cfg
-
-reboot

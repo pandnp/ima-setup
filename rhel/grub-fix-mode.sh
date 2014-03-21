@@ -1,9 +1,9 @@
 #!/bin/bash
 
-if [ $1 == "1" ]; then # vm mode 
-evmpath="evmkey=\/etc\/keys\/evm-user.blob"
-else # hw mode
+if [ $1 == 'tpm' ]; then # tpm mode
 evmpath="evmkey=\/etc\/keys\/evm-trusted.blob"
+elif [ $1 == "notpm" ]; then # no tpm mode
+evmpath="evmkey=\/etc\/keys\/evm-user.blob"
 fi
 
 options="ima_tcb ima_appraise_tcb evm=fix ima_appraise=fix evmx509=\/etc\/keys\/local_x509.der $evmpath"

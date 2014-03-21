@@ -1,11 +1,11 @@
 #!/bin/bash
 
-VM=$1 # set VM=1 for virtual machine, set VM=0 for hardware
+TPM=$1 # set TPM=tpm for hardware, set TPM=notpm for virtual machine
 
 ./install-pkgs.sh
 ./install-ima-evm-utils.sh
 ./install-dracut-patches.sh
-./create-keys.sh $VM
+./create-keys.sh $TPM
 ./mount-iversion.sh
 ./refresh-initramfs.sh
-./grub-fix-mode.sh $VM
+./grub-fix-mode.sh $TPM
