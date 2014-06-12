@@ -83,7 +83,7 @@ load_evm_ima_x509()
     i=0
     while [ $i -le 5 ]; do
         i=$(($i+1))
-        EVMX509ID=$(evmctl -x import ${EVMX509PATH} ${evm_pubid})
+        EVMX509ID=$(evmctl import ${EVMX509PATH} ${evm_pubid})
         [ $? -eq 0 ] || {
             info "integrity: failed to load the EVM X509 cert ${EVMX509PATH}";
             sleep 0.5
@@ -93,7 +93,7 @@ load_evm_ima_x509()
     done
 
     # load the same public key onto the IMA keyring
-    IMAX509ID=$(evmctl -x import ${EVMX509PATH} ${ima_pubid})
+    IMAX509ID=$(evmctl import ${EVMX509PATH} ${ima_pubid})
     [ $? -eq 0 ] || {
         info "integrity: failed to load the EVM X509 cert ${EVMX509PATH}";
         return 1;
