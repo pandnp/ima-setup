@@ -2,9 +2,12 @@
 # -*- mode: shell-script; indent-tabs-mode: nil; sh-basic-offset: 4; -*-
 # ex: ts=8 sw=4 sts=4 et filetype=sh
 
+info "Mount securityfs"
+set -x
 SECURITYFSDIR="/sys/kernel/security"
 export SECURITYFSDIR
 
 if ! findmnt "${SECURITYFSDIR}" >/dev/null 2>&1; then
    mount -t securityfs -o nosuid,noexec,nodev securityfs ${SECURITYFSDIR} >/dev/null 2>&1
 fi
+set +x

@@ -14,6 +14,8 @@ PCRLOCKNUM=11
 
 load_masterkey()
 {
+    info "Load Masterkey"
+    set -x
     # read the configuration from the config file
     [ -f "${MASTERKEYSCONFIG}" ] && \
         . ${MASTERKEYSCONFIG}
@@ -68,7 +70,7 @@ load_masterkey()
         info "masterkey: failed to load the kernel master key: kmk-${MASTERKEYTYPE}";
         return 1;
     }
-
+set +x
     return 0
 }
 

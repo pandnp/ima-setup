@@ -14,6 +14,8 @@ IMAPOLICY="/etc/sysconfig/ima-policy"
 
 load_ima_policy()
 {
+    info "Load IMA policy"
+    set -x
     # check kernel support for IMA
     if [ ! -e "${IMASECDIR}" ]; then
         if [ "${RD_DEBUG}" = "yes" ]; then
@@ -34,7 +36,7 @@ load_ima_policy()
         info "Loading the provided IMA custom policy";
         cat ${IMAPOLICYPATH} > ${IMASECDIR}/policy;
     }
-
+    set +x
     return 0
 }
 

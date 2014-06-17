@@ -16,6 +16,8 @@ EVMKEYID=""
 
 load_evm_key()
 {
+    info "Load EVM key"
+    set -x
     # read the configuration from the config file
     [ -f "${EVMCONFIG}" ] && \
         . ${EVMCONFIG}
@@ -48,12 +50,14 @@ load_evm_key()
         info "integrity: failed to load the EVM encrypted key: ${EVMKEYDESC}";
         return 1;
     }
-
+    set +x
     return 0
 }
 
 load_evm_ima_x509()
 {
+    info "Load EVM IMA X509"
+    set -x
     # read the configuration from the config file
     #[ -f "${EVMCONFIG}" ] && \
     #    . ${EVMCONFIG}
@@ -80,17 +84,11 @@ load_evm_ima_x509()
     # load the EVM public key onto the EVM keyring
     evm_pubid=`keyctl newring _evm @u`
     ima_pubid=`keyctl newring _ima @u`
-    i=0
-    while [ $i -le 5 ]; do
-        i=$(($i+1))
-        EVMX509ID=$(evmctl import ${EVMX509PATH} ${evm_pubid})
-        [ $? -eq 0 ] || {
-            info "integrity: failed to load the EVM X509 cert ${EVMX509PATH}";
-            sleep 0.5
-            continue;
-        }
-        break
-    done
+    EVMX509ID=$(evmctl import ${EVMX509PATH} ${evm_pubid})
+    [ $? -eq 0 ] || {
+	info "integrity: failed to load the EVM X509 cert ${EVMX509PATH}";
+	return 1;
+    }
 
     # load the same public key onto the IMA keyring
     IMAX509ID=$(evmctl import ${EVMX509PATH} ${ima_pubid})
@@ -99,22 +97,28 @@ load_evm_ima_x509()
         return 1;
     }
 
+    keyctl show @u
+
+    set +x
     return 0
 }
 
 unload_evm_key()
 {
+    info "Unload EVM key"
+    set -x
     # unlink the EVM encrypted key
     keyctl unlink ${EVMKEYID} @u || {
         info "integrity: failed to unlink the EVM encrypted key: ${EVMKEYDESC}";
         return 1;
     }
-
+    set +x
     return 0
 }
 
 enable_evm()
 {
+    set -x
     # check kernel support for EVM
     if [ ! -e "${EVMSECFILE}" ]; then
         if [ "${RD_DEBUG}" = "yes" ]; then
@@ -135,7 +139,7 @@ enable_evm()
 
     # unload the EVM encrypted key
     #unload_evm_key || return 1
-
+    set +x
     return 0
 }
 
