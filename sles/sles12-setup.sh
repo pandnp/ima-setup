@@ -7,5 +7,5 @@ TPM=$1 # set TPM=tpm for hardware, set TPM=notpm for virtual machine
 ./install-dracut-patches.sh
 ./create-keys.sh $TPM
 ./mount-iversion.sh
-./refresh-initramfs.sh
+mkinitrd
 ./grub-fix-mode.sh $TPM
