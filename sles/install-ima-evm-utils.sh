@@ -4,7 +4,7 @@
 git clone git://git.code.sf.net/p/linux-ima/ima-evm-utils
 cd ima-evm-utils
 ./autogen.sh
-./configure
+./configure --prefix=/usr
 make
 make install
-ln -s /usr/local/bin/evmctl /sbin
+ln -s /usr/bin/evmctl /sbin
