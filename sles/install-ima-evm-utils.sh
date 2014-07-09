@@ -8,3 +8,4 @@ cd ima-evm-utils
 make
 make install
 ln -s /usr/bin/evmctl /sbin
+ldconfig
