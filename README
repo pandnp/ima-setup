@@ -6,6 +6,12 @@ cd ima-setup/rhel
 ./r7-setup.sh notpm
 reboot
 
+# suse
+su -
+cd ima-setup/sles
+./sles12-setup.sh
+reboot
+
 # ubuntu
 su -
 cd ima-setup/ubuntu
