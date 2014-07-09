@@ -8,4 +8,7 @@ cd ima-evm-utils
 make
 make install
 ln -s /usr/bin/evmctl /sbin
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib
+export LD_LIBRARY_PATH
 ldconfig
+
