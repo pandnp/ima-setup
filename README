@@ -9,7 +9,7 @@ reboot
 # suse
 su -
 cd ima-setup/sles
-./sles12-setup.sh
+./sles12-setup.sh notpm
 reboot
 
 # ubuntu
