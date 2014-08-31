@@ -1,5 +1,3 @@
-# necessary packages
-
 # redhat
 su -
 cd ima-setup/rhel
